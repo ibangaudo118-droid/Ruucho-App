@@ -25,12 +25,15 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Draw edge-to-edge: let the WebView extend under the status bar
+        // Draw edge-to-edge: let the WebView extend under the status bar and nav bar
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
-        // Light icons on the status bar (good for a dark header)
+        // Light icons on the status bar and navigation bar (good for a dark header/footer)
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
             .setAppearanceLightStatusBars(false);
+
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+            .setAppearanceLightNavigationBars(false);
 
         Bridge bridgeForExit = getBridge();
 
@@ -76,4 +79,4 @@ public class MainActivity extends BridgeActivity {
             }
         );
     }
-}
+            }
