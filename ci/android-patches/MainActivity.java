@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.core.view.WindowCompat;
 
 import com.getcapacitor.Bridge;
 import com.getcapacitor.BridgeActivity;
@@ -23,6 +24,13 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Draw edge-to-edge: let the WebView extend under the status bar
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        // Light icons on the status bar (good for a dark header)
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+            .setAppearanceLightStatusBars(false);
 
         Bridge bridgeForExit = getBridge();
 
@@ -68,4 +76,4 @@ public class MainActivity extends BridgeActivity {
             }
         );
     }
-                            }
+}
