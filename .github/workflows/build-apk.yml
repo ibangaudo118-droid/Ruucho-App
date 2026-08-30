@@ -304,28 +304,24 @@ jobs:
           block = match.group(0)
           new_block = block
 
-          if 'name="android:windowDrawsSystemBarBackgrounds"' not in new_block:
-              new_block = new_block.replace(
-                  "</style>",
-                  '    <item name="android:windowDrawsSystemBarBackgrounds">true</item>\n</style>'
-              )
+          items_to_add = {
+              'android:windowDrawsSystemBarBackgrounds': 'true',
+              'android:statusBarColor': '@android:color/transparent',
+              'android:navigationBarColor': '@android:color/transparent',
+              'android:fitsSystemWindows': 'false',
+          }
 
-          if 'name="android:statusBarColor"' not in new_block:
-              new_block = new_block.replace(
-                  "</style>",
-                  '    <item name="android:statusBarColor">@android:color/transparent</item>\n</style>'
-              )
-
-          if 'name="android:fitsSystemWindows"' not in new_block:
-              new_block = new_block.replace(
-                  "</style>",
-                  '    <item name="android:fitsSystemWindows">false</item>\n</style>'
-              )
+          for name, value in items_to_add.items():
+              if f'name="{name}"' not in new_block:
+                  new_block = new_block.replace(
+                      "</style>",
+                      f'    <item name="{name}">{value}</item>\n</style>'
+                  )
 
           styles = styles.replace(block, new_block)
           styles_path.write_text(styles)
 
-          print("AppTheme.NoActionBar patched for edge-to-edge.")
+          print("AppTheme.NoActionBar patched for edge-to-edge (status + nav bar).")
           PY
 
       - name: Patch Android manifest
