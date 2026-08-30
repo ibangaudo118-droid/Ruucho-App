@@ -281,12 +281,52 @@ jobs:
 
           echo "Ruucho splash theme merged successfully."
 
-      - name: DEBUG - print generated styles.xml
+      - name: Patch AppTheme.NoActionBar for edge-to-edge
         working-directory: vio-android
         run: |
-          echo "===== styles.xml ====="
-          cat android/app/src/main/res/values/styles.xml
-          echo "===== end styles.xml ====="
+          set -euo pipefail
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          styles_path = Path("android/app/src/main/res/values/styles.xml")
+          styles = styles_path.read_text()
+
+          match = re.search(
+              r'<style\s+name="AppTheme\.NoActionBar"[^>]*>[\s\S]*?</style>',
+              styles
+          )
+
+          if not match:
+              raise SystemExit("ERROR: AppTheme.NoActionBar not found")
+
+          block = match.group(0)
+          new_block = block
+
+          if 'name="android:windowDrawsSystemBarBackgrounds"' not in new_block:
+              new_block = new_block.replace(
+                  "</style>",
+                  '    <item name="android:windowDrawsSystemBarBackgrounds">true</item>\n</style>'
+              )
+
+          if 'name="android:statusBarColor"' not in new_block:
+              new_block = new_block.replace(
+                  "</style>",
+                  '    <item name="android:statusBarColor">@android:color/transparent</item>\n</style>'
+              )
+
+          if 'name="android:fitsSystemWindows"' not in new_block:
+              new_block = new_block.replace(
+                  "</style>",
+                  '    <item name="android:fitsSystemWindows">false</item>\n</style>'
+              )
+
+          styles = styles.replace(block, new_block)
+          styles_path.write_text(styles)
+
+          print("AppTheme.NoActionBar patched for edge-to-edge.")
+          PY
 
       - name: Patch Android manifest
         working-directory: vio-android
