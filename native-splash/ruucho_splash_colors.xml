@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- RUUCHO brand tokens (matches resources/icon-background.png & README) -->
+    <color name="ruucho_splash_background">#0B0C0F</color>
+    <color name="ruucho_splash_accent">#E8E4DF</color>
+    <color name="ruucho_splash_ring">#4C3F91</color>
+</resources>
