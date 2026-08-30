@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Same fix as values-v31/styles.xml, applied under the system dark-mode
+  qualifier. VIO's splash-dark.png source uses the same brand background
+  (#0B0C0F) as the default splash, so the color here matches it for
+  consistency — only the animated-icon override is what actually matters.
+-->
+<resources>
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#0B0C0F</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_transparent</item>
+        <item name="windowSplashScreenAnimationDuration">1</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+    </style>
+</resources>
