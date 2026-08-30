@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Overrides the values-v31/styles.xml that "npx capacitor-assets generate
+  --android" produces. The generator points windowSplashScreenAnimatedIcon
+  at the launcher icon by default — that's the "VIO icon on a launch
+  screen" the user is seeing before the HTML splash. This file swaps that
+  reference to a transparent drawable and pins the background to VIO's
+  exact splash background color (#0B0C0F), so Android 12+'s mandatory
+  system splash renders as a plain branded field of color that the HTML
+  splash then continues on top of.
+-->
+<resources>
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#0B0C0F</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_transparent</item>
+        <item name="windowSplashScreenAnimationDuration">1</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+    </style>
+</resources>
