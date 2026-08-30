@@ -1,5 +1,6 @@
 package com.ruucho.app;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -34,6 +35,11 @@ public class MainActivity extends BridgeActivity {
 
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
             .setAppearanceLightNavigationBars(false);
+
+        // Disable Android's automatic translucent scrim behind the nav bar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
 
         Bridge bridgeForExit = getBridge();
 
@@ -79,4 +85,4 @@ public class MainActivity extends BridgeActivity {
             }
         );
     }
-            }
+                }
