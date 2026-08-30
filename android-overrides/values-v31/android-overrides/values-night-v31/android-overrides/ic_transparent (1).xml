@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Intentionally empty vector. The Android 12+ SplashScreen API
+  (Theme.SplashScreen) requires a windowSplashScreenAnimatedIcon —
+  this cannot be omitted. Pointing it at an empty drawable means
+  nothing renders in the icon slot, so only the branded background
+  color is visible, matching the resting frame of the VIO HTML splash.
+  The real VIO launcher icon (mipmap/ic_launcher) is untouched and
+  still used for the home screen / app drawer.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1dp"
+    android:height="1dp"
+    android:viewportWidth="1"
+    android:viewportHeight="1" />
