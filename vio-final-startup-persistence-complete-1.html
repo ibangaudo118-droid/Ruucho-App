@@ -136,52 +136,39 @@
     }
     .vio-auth__content {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
-      padding-top: 3vh;
+      gap: 1.35rem;
+      padding-top: clamp(1.5rem, 5vh, 3.25rem);
     }
     .vio-auth__brand {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
+      padding: 0.25rem 0 0.35rem;
     }
-    .vio-auth__wordmark {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      color: var(--vio-accent);
-      line-height: 1;
+    .vio-auth__brand-logo {
+      width: min(220px, 64vw);
+      height: auto;
+      display: block;
+      object-fit: contain;
       user-select: none;
     }
-    .vio-auth__wordmark .vio-letter--o {
-      position: relative;
-      display: inline-block;
+    .vio-auth__headline {
+      text-align: center;
+      margin-top: 0.1rem;
     }
-    .vio-auth__wordmark .vio-letter--o::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 1.3em;
-      height: 1.3em;
-      border: 1.2px solid var(--vio-ring);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-    .vio-auth__headline { text-align: center; }
     .vio-auth__headline h1 {
-      font-size: clamp(1.5rem, 5vw, 1.75rem);
+      font-size: clamp(1.65rem, 5.8vw, 1.9rem);
       font-weight: 700;
       color: var(--vio-accent);
       line-height: 1.2;
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.45rem;
     }
     .vio-auth__headline p {
-      font-size: 0.9375rem;
+      font-size: 0.95rem;
       font-weight: 400;
       color: var(--vio-muted);
       line-height: 1.5;
@@ -189,7 +176,7 @@
     .vio-form {
       display: flex;
       flex-direction: column;
-      gap: 1.125rem;
+      gap: 1rem;
     }
     .vio-form__group {
       display: flex;
@@ -308,6 +295,82 @@
       color: var(--vio-muted);
       margin-top: 0.375rem;
     }
+    .vio-auth__social {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .vio-google-btn {
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 0 1rem;
+      font-family: var(--vio-font);
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--vio-accent);
+      background: var(--vio-surface);
+      border: 1px solid var(--vio-border);
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .vio-google-btn:hover {
+      border-color: var(--vio-border-focus);
+      background: var(--vio-surface-elevated);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+    .vio-google-btn:active { transform: scale(0.99); }
+    .vio-google-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .vio-google-btn__icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      display: block;
+    }
+    .vio-google-btn__spinner {
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      border: 2px solid var(--vio-chrome-20);
+      border-top-color: var(--vio-brand);
+      border-radius: 50%;
+      opacity: 0;
+      animation: vio-spin 0.8s linear infinite;
+    }
+    .vio-google-btn.is-loading > * { visibility: hidden; }
+    .vio-google-btn.is-loading .vio-google-btn__spinner { visibility: visible; opacity: 1; }
+    .vio-auth__divider {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--vio-muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .vio-auth__divider::before,
+    .vio-auth__divider::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: var(--vio-border);
+    }
+    .vio-auth__social + .vio-auth__divider { margin-top: -0.1rem; }
+    .vio-auth__divider + .vio-form { margin-top: -0.05rem; }
+
     .vio-btn {
       width: 100%;
       height: 52px;
@@ -7441,6 +7504,11 @@
   font-weight: 700;
 }
 
+.vio-profile__stat--interactive {
+  border: 0; background: transparent; color: inherit; padding: 0; margin: 0; font: inherit; cursor: pointer;
+}
+.vio-profile__stat--interactive:active { opacity: .65; }
+
 #screen-profile .vio-profile__stat-label,
 #vio-userprofile-overlay .vio-profile__stat-label {
   font-size: 13px;
@@ -7903,6 +7971,14 @@ body:has(#screen-profile.is-active) .vio-main {
   padding-top: var(--safe-top);
 }
 
+/* Followers / Following is a focused list screen: no global message icon/header. */
+body:has(#screen-follow-network.is-active) .vio-header {
+  display: none !important;
+}
+body:has(#screen-follow-network.is-active) .vio-main {
+  padding-top: var(--safe-top);
+}
+
 
 /* ================================================================
    PROFILE TOPBAR CONSISTENCY — own + public profile
@@ -7993,6 +8069,298 @@ body:has(#screen-profile.is-active) .vio-main {
       opacity: 0;
       pointer-events: none;
     }
+
+    /* ═══════════════════════════════════════════════════════════════
+       LOGIN VIEW — compact, launch-ready layout
+       Scoped ONLY to the sign-in view. Create account and Forgot
+       password screens intentionally retain their existing styling.
+       ═══════════════════════════════════════════════════════════════ */
+    #vio-auth:has(#view-login.is-active) {
+      overflow: hidden;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__container {
+      min-height: 100dvh;
+      height: 100dvh;
+      justify-content: center;
+      padding: max(1rem, var(--safe-top)) 1rem max(1rem, var(--safe-bottom));
+      overflow: hidden;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__content {
+      width: 100%;
+      max-width: 360px;
+      gap: 0;
+      padding-top: 0;
+      flex: 0 0 auto;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__brand {
+      padding: 0 0 1.05rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__brand-logo {
+      width: min(118px, 32vw);
+      max-height: 42px;
+      object-fit: contain;
+    }
+
+    #vio-auth:has(#view-login.is-active) #view-login {
+      gap: 0;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__headline {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__headline h1 {
+      font-size: 1.35rem;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.28rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__headline p {
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__social {
+      gap: 0;
+      margin-bottom: 0.8rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-google-btn {
+      min-height: 46px;
+      height: 46px;
+      padding: 0 0.8rem;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      border-radius: 9px;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-google-btn__icon {
+      width: 18px;
+      height: 18px;
+      flex-basis: 18px;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__divider {
+      gap: 0.65rem;
+      font-size: 0.61rem;
+      letter-spacing: 0.06em;
+      margin: 0 0 0.8rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__divider + .vio-form {
+      margin-top: 0;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-form {
+      gap: 0.68rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-form__group {
+      gap: 0.3rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-form__label {
+      font-size: 0.69rem;
+      line-height: 1.25;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-input {
+      height: 44px;
+      padding: 0 40px 0 13px;
+      font-size: 0.84rem;
+      border-radius: 8px;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-input__toggle {
+      right: 9px;
+      padding: 3px;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-input__toggle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-form__error {
+      font-size: 0.68rem;
+      line-height: 1.25;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__forgot {
+      margin-top: -0.05rem;
+      margin-bottom: 0.05rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__forgot .vio-auth__link {
+      font-size: 0.69rem;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-banner {
+      padding: 0.55rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      line-height: 1.3;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-btn {
+      height: 46px;
+      margin-top: 0.12rem;
+      font-size: 0.84rem;
+      border-radius: 8px;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__secondary {
+      margin-top: 0.85rem;
+      font-size: 0.72rem;
+      line-height: 1.35;
+    }
+
+    #vio-auth:has(#view-login.is-active) .vio-auth__link {
+      font-size: inherit;
+    }
+
+    @media (max-height: 640px) {
+      #vio-auth:has(#view-login.is-active) .vio-auth__brand {
+        padding-bottom: 0.6rem;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-auth__brand-logo {
+        width: 96px;
+        max-height: 34px;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-auth__headline {
+        margin-bottom: 0.65rem;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-auth__social {
+        margin-bottom: 0.55rem;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-auth__divider {
+        margin-bottom: 0.55rem;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-form {
+        gap: 0.5rem;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-input,
+      #vio-auth:has(#view-login.is-active) .vio-btn,
+      #vio-auth:has(#view-login.is-active) .vio-google-btn {
+        height: 42px;
+        min-height: 42px;
+      }
+
+      #vio-auth:has(#view-login.is-active) .vio-auth__secondary {
+        margin-top: 0.6rem;
+      }
+    }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FOLLOWERS / FOLLOWING SCREEN — X-STYLE
+   ═══════════════════════════════════════════════════════════════ */
+#screen-follow-network {
+  background: #000;
+  color: #fff;
+}
+.vio-follow-network {
+  min-height: 100%;
+  background: #000;
+}
+.vio-follow-network__topbar { display: none !important; }
+.vio-follow-network__title { display: none !important; }
+.vio-follow-network__tabs {
+  position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 52px;
+  background: #000; border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.vio-follow-network__tab {
+  position: relative; height: 52px; border: 0; background: transparent; color: #8b8f98;
+  font-size: 0.9rem; font-weight: 700; cursor: pointer;
+}
+.vio-follow-network__tab.is-active { color: #fff; }
+.vio-follow-network__tab.is-active::after {
+  content: ''; position: absolute; left: 50%; bottom: 0; width: 58px; height: 3px;
+  transform: translateX(-50%); border-radius: 99px; background: #fff;
+}
+.vio-follow-network__search {
+  margin: 12px 16px 6px; height: 42px; display: flex; align-items: center; gap: 9px;
+  padding: 0 13px; border-radius: 22px; background: #1f2227; color: #9a9da4;
+}
+.vio-follow-network__search input {
+  width: 100%; border: 0; outline: 0; background: transparent; color: #fff;
+  font: inherit; font-size: 14px;
+}
+.vio-follow-network__search input::placeholder { color: #8b8f98; opacity: 1; }
+.vio-follow-network__list { padding: 4px 0 28px; }
+.vio-follow-user {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 72px;
+  cursor: pointer; transition: background .12s ease;
+}
+.vio-follow-user:active { background: rgba(255,255,255,.06); }
+.vio-follow-user__avatar {
+  width: 48px; height: 48px; flex: 0 0 48px; border-radius: 50%; overflow: hidden;
+  display: grid; place-items: center; background: #1f2227; color: #8b8f98;
+}
+.vio-follow-user__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.vio-follow-user__avatar svg { width: 24px; height: 24px; }
+.vio-follow-user__main { min-width: 0; flex: 1; }
+.vio-follow-user__name {
+  display: flex; align-items: center; gap: 4px; min-width: 0; font-size: 14px; font-weight: 800; line-height: 1.42; color: #fff;
+}
+.vio-follow-user__name-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vio-follow-user__handle {
+  margin-top: 1px; color: #8b8f98; font-size: 0.8rem; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vio-follow-user__bio {
+  margin-top: 3px; color: #c3c6cc; font-size: 0.8rem; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vio-follow-user__action {
+  flex: 0 0 auto; min-width: 88px; height: 34px; padding: 0 15px; border-radius: 18px;
+  border: 1px solid #fff; background: #fff; color: #000;
+  font-size: 0.9rem; font-weight: 800; cursor: pointer;
+}
+.vio-follow-user__action--following { background: #000; color: #fff; border-color: #fff; }
+.vio-follow-user__action:disabled { opacity: .55; cursor: default; }
+.vio-follow-network__empty { padding: 64px 28px; text-align: center; color: #9a9da4; }
+.vio-follow-network__empty-title { margin: 0 0 7px; color: #fff; font-size: 18px; font-weight: 800; }
+.vio-follow-network__empty-body { margin: 0; color: #aeb1b8; font-size: 14px; line-height: 21px; }
+.vio-follow-network__loading { padding: 38px 20px; text-align: center; color: #aeb1b8; font-size: 14px; }
+
+/* Light mode: intentionally pure black text on white, with strong contrast. */
+body.vio-light #screen-follow-network { background: #fff; color: #111; }
+body.vio-light #screen-follow-network .vio-follow-network { background: #fff; }
+body.vio-light #screen-follow-network .vio-follow-network__title { color: #111; }
+body.vio-light #screen-follow-network .vio-follow-network__tabs { background: #fff; border-bottom-color: rgba(17,17,17,.12); }
+body.vio-light #screen-follow-network .vio-follow-network__tab { color: #6b6b70; }
+body.vio-light #screen-follow-network .vio-follow-network__tab.is-active { color: #111; }
+body.vio-light #screen-follow-network .vio-follow-network__tab.is-active::after { background: #111; }
+body.vio-light #screen-follow-network .vio-follow-network__search { background: #f0f0f0; color: #5f6368; }
+body.vio-light #screen-follow-network .vio-follow-network__search input { color: #111; }
+body.vio-light #screen-follow-network .vio-follow-network__search input::placeholder { color: #6b6b70; }
+body.vio-light #screen-follow-network .vio-follow-user:active { background: rgba(17,17,17,.05); }
+body.vio-light #screen-follow-network .vio-follow-user__avatar { background: #f0f0f0; color: #777; }
+body.vio-light #screen-follow-network .vio-follow-user__name { color: #111; }
+body.vio-light #screen-follow-network .vio-follow-user__handle { color: #6b6b70; }
+body.vio-light #screen-follow-network .vio-follow-user__bio { color: #4f5358; }
+body.vio-light #screen-follow-network .vio-follow-user__action { background: #111; color: #fff; border-color: #111; }
+body.vio-light #screen-follow-network .vio-follow-user__action--following { background: #fff; color: #111; border-color: #111; }
+body.vio-light #screen-follow-network .vio-follow-network__empty { color: #5f6368; }
+body.vio-light #screen-follow-network .vio-follow-network__empty-title { color: #111; }
+body.vio-light #screen-follow-network .vio-follow-network__empty-body,
+body.vio-light #screen-follow-network .vio-follow-network__loading { color: #5f6368; }
+
+@media (prefers-reduced-motion: reduce) { .vio-follow-user { transition: none; } }
 </style>
 
 <style id="ruucho-comments-smart-identity-layout">
@@ -8105,6 +8473,420 @@ body:has(#screen-profile.is-active) .vio-main {
     #screen-conversation .vio-conversation__handle,
     #vio-conversation-overlay .vio-conversation__handle { font-size: 14px !important; line-height: 1.35 !important; }
   </style>
+
+<style id="profile-typography-final-adjustment">
+/* Latest requested profile typography adjustment: only profile creator/name metadata areas. */
+#screen-profile .vio-profile__name,
+#vio-userprofile-overlay .vio-profile__name {
+  font-size: 19px !important;
+}
+#screen-profile .vio-profile__handle,
+#vio-userprofile-overlay .vio-profile__handle {
+  font-size: 14px !important;
+}
+#screen-profile .vio-profile__bio,
+#vio-userprofile-overlay .vio-profile__bio {
+  font-size: 16px !important;
+}
+#screen-profile .vio-profile__meta,
+#screen-profile .vio-profile__meta-item,
+#vio-userprofile-overlay .vio-profile__meta,
+#vio-userprofile-overlay .vio-profile__meta-item {
+  font-size: 16.5px !important;
+}
+</style>
+
+<style id="ruucho-signin-final-visual-balance">
+/* Final sign-in visual-balance pass.
+   Scoped strictly to #view-login; signup and forgot-password are untouched. */
+#vio-auth:has(#view-login.is-active) .vio-auth__content {
+  max-width: 360px;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__brand {
+  padding-bottom: 0.95rem;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__brand-logo {
+  width: 116px;
+  max-width: 31vw;
+  max-height: 34px;
+  object-fit: contain;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__headline {
+  margin-bottom: 0.9rem;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__headline h1 {
+  font-size: 1.32rem;
+  line-height: 1.18;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.24rem;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__headline p {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  font-weight: 400;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__social {
+  margin-bottom: 0.72rem;
+}
+#vio-auth:has(#view-login.is-active) .vio-google-btn {
+  height: 45px;
+  min-height: 45px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 9px;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__divider {
+  margin-bottom: 0.72rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+#vio-auth:has(#view-login.is-active) .vio-form {
+  gap: 0.64rem;
+}
+#vio-auth:has(#view-login.is-active) .vio-form__group {
+  gap: 0.28rem;
+}
+#vio-auth:has(#view-login.is-active) .vio-form__label {
+  font-size: 0.7rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+#vio-auth:has(#view-login.is-active) .vio-input {
+  height: 43px;
+  font-size: 0.82rem;
+  border-radius: 8px;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__forgot .vio-auth__link {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+#vio-auth:has(#view-login.is-active) .vio-btn {
+  height: 45px;
+  font-size: 0.84rem;
+  font-weight: 650;
+  border-radius: 8px;
+}
+#vio-auth:has(#view-login.is-active) .vio-auth__secondary {
+  margin-top: 0.78rem;
+  font-size: 0.71rem;
+}
+</style>
+
+
+<style id="ruucho-signup-balanced-final">
+  /* Create-account page only. The sign-in and forgot-password layouts remain untouched. */
+  #vio-auth:has(#view-signup.is-active) {
+    overflow: hidden;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__container {
+    min-height: 100dvh;
+    height: 100dvh;
+    justify-content: center;
+    padding: max(1rem, var(--safe-top)) 1rem max(1rem, var(--safe-bottom));
+    overflow: hidden;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__content {
+    width: 100%;
+    max-width: 360px;
+    gap: 0;
+    padding-top: 0;
+    flex: 0 0 auto;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__brand {
+    padding: 0 0 1.05rem;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__brand-logo {
+    width: min(118px, 32vw);
+    max-height: 42px;
+    object-fit: contain;
+  }
+
+  #vio-auth:has(#view-signup.is-active) #view-signup {
+    gap: 0;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__headline {
+    margin-top: 0;
+    margin-bottom: 0.9rem;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__headline h1 {
+    font-size: 1.35rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.28rem;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__headline p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-form {
+    gap: 0.58rem;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-form__group {
+    gap: 0.28rem;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-form__label {
+    font-size: 0.69rem;
+    line-height: 1.25;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-input {
+    height: 44px;
+    padding: 0 40px 0 13px;
+    font-size: 0.84rem;
+    border-radius: 8px;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-input__toggle {
+    right: 9px;
+    padding: 3px;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-input__toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-form__error,
+  #vio-auth:has(#view-signup.is-active) .vio-form__status {
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-strength {
+    gap: 0.3rem;
+    margin-top: 0.16rem;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-strength__bar {
+    height: 2px;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-strength__label {
+    font-size: 0.65rem;
+    margin-top: 0.18rem;
+    line-height: 1.2;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-banner {
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-btn {
+    height: 46px;
+    margin-top: 0.1rem;
+    font-size: 0.84rem;
+    border-radius: 8px;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__terms {
+    max-width: 330px;
+    margin-top: 0.62rem;
+    font-size: 0.63rem;
+    line-height: 1.4;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__secondary {
+    margin-top: 0.68rem;
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  #vio-auth:has(#view-signup.is-active) .vio-auth__link {
+    font-size: inherit;
+  }
+
+  @media (max-height: 700px) {
+    #vio-auth:has(#view-signup.is-active) .vio-auth__brand {
+      padding-bottom: 0.62rem;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-auth__brand-logo {
+      width: 96px;
+      max-height: 34px;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-auth__headline {
+      margin-bottom: 0.58rem;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-form {
+      gap: 0.42rem;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-input {
+      height: 42px;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-btn {
+      height: 44px;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-auth__terms {
+      margin-top: 0.42rem;
+    }
+
+    #vio-auth:has(#view-signup.is-active) .vio-auth__secondary {
+      margin-top: 0.45rem;
+    }
+  }
+</style>
+
+
+<style id="ruucho-forgot-password-balanced-final">
+  /* Forgot-password visual-balance pass. Sign-in and create-account remain unchanged. */
+  #vio-auth:has(#view-forgot.is-active) {
+    overflow: hidden;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__container {
+    min-height: 100dvh;
+    height: 100dvh;
+    justify-content: center;
+    padding: max(1rem, var(--safe-top)) 1rem max(1rem, var(--safe-bottom));
+    overflow: hidden;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__content {
+    width: 100%;
+    max-width: 360px;
+    gap: 0;
+    padding-top: 0;
+    flex: 0 0 auto;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__brand {
+    padding: 0 0 0.95rem;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__brand-logo {
+    width: 116px;
+    max-width: 31vw;
+    max-height: 34px;
+    object-fit: contain;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) #view-forgot {
+    gap: 0;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__headline {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__headline h1 {
+    font-size: 1.32rem;
+    line-height: 1.18;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.28rem;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__headline p {
+    max-width: 320px;
+    margin: 0 auto;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-form {
+    gap: 0.72rem;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-form__group {
+    gap: 0.28rem;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-form__label {
+    font-size: 0.7rem;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-input {
+    height: 43px;
+    padding: 0 13px;
+    font-size: 0.82rem;
+    border-radius: 8px;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-form__error {
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-banner {
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-btn {
+    height: 45px;
+    margin-top: 0.12rem;
+    font-size: 0.84rem;
+    font-weight: 650;
+    border-radius: 8px;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__secondary {
+    margin-top: 0.9rem;
+    font-size: 0.71rem;
+    line-height: 1.35;
+  }
+
+  #vio-auth:has(#view-forgot.is-active) .vio-auth__link {
+    font-size: inherit;
+  }
+
+  @media (max-height: 700px) {
+    #vio-auth:has(#view-forgot.is-active) .vio-auth__brand {
+      padding-bottom: 0.62rem;
+    }
+
+    #vio-auth:has(#view-forgot.is-active) .vio-auth__brand-logo {
+      width: 96px;
+      max-height: 34px;
+    }
+
+    #vio-auth:has(#view-forgot.is-active) .vio-auth__headline {
+      margin-bottom: 0.68rem;
+    }
+
+    #vio-auth:has(#view-forgot.is-active) .vio-form {
+      gap: 0.52rem;
+    }
+
+    #vio-auth:has(#view-forgot.is-active) .vio-input {
+      height: 42px;
+    }
+
+    #vio-auth:has(#view-forgot.is-active) .vio-btn {
+      height: 44px;
+    }
+
+    #vio-auth:has(#view-forgot.is-active) .vio-auth__secondary {
+      margin-top: 0.62rem;
+    }
+  }
+</style>
+
 </head>
 <body>
 
@@ -8131,9 +8913,12 @@ body:has(#screen-profile.is-active) .vio-main {
 
         <!-- Brand -->
         <div class="vio-auth__brand">
-          <div class="vio-auth__wordmark" aria-label="Ruucho">
-            <span>R</span><span>U</span><span>U</span><span>C</span><span>H</span><span class="vio-letter--o">O</span>
-          </div>
+          <img
+            id="ruucho-auth-logo"
+            class="vio-auth__brand-logo"
+            alt="Ruucho"
+            aria-label="Ruucho"
+          >
         </div>
 
         <!-- LOGIN VIEW -->
@@ -8142,6 +8927,22 @@ body:has(#screen-profile.is-active) .vio-main {
             <h1>Welcome back</h1>
             <p>Sign in to continue.</p>
           </div>
+
+          <div class="vio-auth__social">
+            <button type="button" class="vio-google-btn" id="btn-google">
+              <svg class="vio-google-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.55-.22-2.28H12v4.32h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.43Z"/>
+                <path fill="#34A853" d="M12 21.99c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.55 0-4.71-1.72-5.49-4.03H3.27v2.53A9.75 9.75 0 0 0 12 21.99Z"/>
+                <path fill="#FBBC05" d="M6.51 14.07a5.86 5.86 0 0 1 0-3.74V7.8H3.27a10 10 0 0 0 0 8.8l3.24-2.53Z"/>
+                <path fill="#EA4335" d="M12 6.3c1.43 0 2.72.49 3.73 1.46l2.79-2.79C16.83 3.42 14.63 2.5 12 2.5a9.75 9.75 0 0 0-8.73 5.3l3.24 2.53C7.29 8.02 9.45 6.3 12 6.3Z"/>
+              </svg>
+              <span>Continue with Google</span>
+              <span class="vio-google-btn__spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="vio-auth__divider" aria-hidden="true">or continue with email</div>
+
           <form class="vio-form" id="form-login" novalidate>
             <div class="vio-form__group">
               <label class="vio-form__label" for="login-email">Email or username</label>
@@ -8568,14 +9369,14 @@ body:has(#screen-profile.is-active) .vio-main {
                 <span class="vio-profile__stat-value" id="profile-posts-count">0</span>
                 <span class="vio-profile__stat-label">Posts</span>
               </div>
-              <div class="vio-profile__stat">
+              <button type="button" class="vio-profile__stat vio-profile__stat--interactive" id="profile-followers-stat" aria-label="View followers">
                 <span class="vio-profile__stat-value" id="profile-followers-count">0</span>
                 <span class="vio-profile__stat-label">Followers</span>
-              </div>
-              <div class="vio-profile__stat">
+              </button>
+              <button type="button" class="vio-profile__stat vio-profile__stat--interactive" id="profile-following-stat" aria-label="View following">
                 <span class="vio-profile__stat-value" id="profile-following-count">0</span>
                 <span class="vio-profile__stat-label">Following</span>
-              </div>
+              </button>
             </div>
             <div class="vio-profile__actions">
               <button class="vio-profile__btn vio-profile__btn--primary" id="profile-edit-btn">Edit profile</button>
@@ -8594,6 +9395,25 @@ body:has(#screen-profile.is-active) .vio-main {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 Create first post
               </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOLLOWERS / FOLLOWING SCREEN -->
+        <div id="screen-follow-network" class="vio-screen">
+          <div class="vio-follow-network">
+            <div class="vio-follow-network__tabs" role="tablist" aria-label="Followers and following">
+              <button type="button" class="vio-follow-network__tab is-active" id="follow-network-followers-tab" role="tab" aria-selected="true">Followers</button>
+              <button type="button" class="vio-follow-network__tab" id="follow-network-following-tab" role="tab" aria-selected="false">Following</button>
+            </div>
+            <label class="vio-follow-network__search" aria-label="Search people">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+              <input id="follow-network-search" type="search" autocomplete="off" placeholder="Search people">
+            </label>
+            <div id="follow-network-list" class="vio-follow-network__list"></div>
+            <div id="follow-network-empty" class="vio-follow-network__empty" style="display:none;">
+              <h3 class="vio-follow-network__empty-title">No people found</h3>
+              <p class="vio-follow-network__empty-body">When people appear here, you'll see them in this list.</p>
             </div>
           </div>
         </div>
@@ -10272,10 +11092,14 @@ body:has(#screen-profile.is-active) .vio-main {
   </div>
 
   <script>
-    // Exact Ruucho icon used in the header. Embedded so the HTML remains self-contained.
+    // Ruucho brand assets are embedded so the HTML remains self-contained.
     (function () {
+      const logoData = 'data:image/png;base64,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';
       const logo = document.getElementById('ruucho-header-logo');
-      if (logo) logo.src = 'data:image/png;base64,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';
+      const authLogo = document.getElementById('ruucho-auth-logo');
+      const authLogoData = 'data:image/png;base64,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';
+      if (logo) logo.src = logoData;
+      if (authLogo) authLogo.src = authLogoData;
     })();
 
     /* ═══════════════════════════════════════════════════════════════
@@ -10453,6 +11277,7 @@ body:has(#screen-profile.is-active) .vio-main {
         this.setupAuthNavigation();
         this.setupAppNavigation();
         this.setupAppActions();
+        this.setupFollowNetwork();
         this.setupDrawer();
         this.setupComposer();
         this.setupFeed();
@@ -10671,6 +11496,13 @@ body:has(#screen-profile.is-active) .vio-main {
          AUTH FORMS & VALIDATION
          ═══════════════════════════════════════════════════════════════ */
       setupAuthForms() {
+        const googleButton = document.getElementById('btn-google');
+        if (googleButton) {
+          googleButton.addEventListener('click', async () => {
+            await this.submitGoogleAuth(googleButton);
+          });
+        }
+
         document.getElementById('form-login').addEventListener('submit', async (e) => {
           e.preventDefault();
           if (this.validateLogin()) await this.mockAuthSubmit('login');
@@ -10683,6 +11515,51 @@ body:has(#screen-profile.is-active) .vio-main {
           e.preventDefault();
           if (this.validateForgot()) await this.mockAuthSubmit('forgot');
         });
+      }
+
+      async submitGoogleAuth(button) {
+        if (!button || button.disabled) return;
+
+        const banner = document.getElementById('login-banner');
+        button.disabled = true;
+        button.classList.add('is-loading');
+
+        try {
+          const options = {
+            queryParams: {
+              prompt: 'select_account'
+            }
+          };
+
+          // Browser deployments can safely return to the current route.
+          // Native WebView builds should use the configured Supabase Site URL
+          // / allowed redirect URL instead of a content:// URL.
+          if (/^https?:$/.test(window.location.protocol)) {
+            options.redirectTo = window.location.href.split('#')[0];
+          }
+
+          const { data, error } = await vioSupabase.auth.signInWithOAuth({
+            provider: 'google',
+            options
+          });
+
+          if (error) throw error;
+          if (!data?.url) throw new Error('Google sign-in could not start.');
+
+          // Explicit fallback for environments that don't auto-navigate.
+          if (window.location.href !== data.url) {
+            window.location.assign(data.url);
+          }
+        } catch (error) {
+          console.error('VIO: Google sign-in failed', error);
+          this.showBanner(
+            banner,
+            'error',
+            error?.message || 'Could not start Google sign-in. Please try again.'
+          );
+          button.disabled = false;
+          button.classList.remove('is-loading');
+        }
       }
 
       validateLogin() {
@@ -12880,6 +13757,228 @@ body:has(#screen-profile.is-active) .vio-main {
           this.showToast?.('Could not update Echo. Please try again.');
         } finally {
           this._echoInFlight.delete(postId);
+        }
+      }
+
+      /* ═══════════════════════════════════════════════════════════════
+         FOLLOWERS / FOLLOWING
+         X-style people list for the current user's network.
+         ═══════════════════════════════════════════════════════════════ */
+      setupFollowNetwork() {
+        const followersTab = document.getElementById('follow-network-followers-tab');
+        const followingTab = document.getElementById('follow-network-following-tab');
+        const backBtn = document.getElementById('follow-network-back');
+        const search = document.getElementById('follow-network-search');
+        const followersStat = document.getElementById('profile-followers-stat');
+        const followingStat = document.getElementById('profile-following-stat');
+
+        if (followersTab) followersTab.addEventListener('click', () => this.openFollowNetwork('followers'));
+        if (followingTab) followingTab.addEventListener('click', () => this.openFollowNetwork('following'));
+        if (backBtn) backBtn.addEventListener('click', () => this.goToPreviousScreen('profile'));
+        if (followersStat) followersStat.addEventListener('click', () => this.openFollowNetwork('followers'));
+        if (followingStat) followingStat.addEventListener('click', () => this.openFollowNetwork('following'));
+        if (search) search.addEventListener('input', () => this.filterFollowNetwork());
+      }
+
+      async openFollowNetwork(mode = 'followers') {
+        if (!this.currentUser?.id) return;
+        this.followNetworkMode = mode === 'following' ? 'following' : 'followers';
+        this.followNetworkUsers = [];
+        this.showScreen('follow-network');
+        this.updateFollowNetworkTabs();
+        const search = document.getElementById('follow-network-search');
+        if (search) search.value = '';
+        await this.loadFollowNetwork();
+      }
+
+      updateFollowNetworkTabs() {
+        const mode = this.followNetworkMode || 'followers';
+        const followersTab = document.getElementById('follow-network-followers-tab');
+        const followingTab = document.getElementById('follow-network-following-tab');
+        const title = document.getElementById('follow-network-title');
+        if (followersTab) { followersTab.classList.toggle('is-active', mode === 'followers'); followersTab.setAttribute('aria-selected', mode === 'followers'); }
+        if (followingTab) { followingTab.classList.toggle('is-active', mode === 'following'); followingTab.setAttribute('aria-selected', mode === 'following'); }
+        if (title) title.textContent = mode === 'following' ? 'Following' : 'Followers';
+      }
+
+      async loadFollowNetwork() {
+        const list = document.getElementById('follow-network-list');
+        const empty = document.getElementById('follow-network-empty');
+        if (!list || !empty || !this.currentUser?.id) return;
+        list.style.display = 'block';
+        empty.style.display = 'none';
+        list.innerHTML = '<div class="vio-follow-network__loading">Loading…</div>';
+
+        try {
+          const relationQuery = this.followNetworkMode === 'following'
+            ? vioSupabase.from('follows').select('following_id, created_at').eq('follower_id', this.currentUser.id).order('created_at', { ascending: false })
+            : vioSupabase.from('follows').select('follower_id, created_at').eq('following_id', this.currentUser.id).order('created_at', { ascending: false });
+          const { data: relations, error: relationError } = await relationQuery;
+          if (relationError) throw relationError;
+
+          const ids = (relations || []).map(r => this.followNetworkMode === 'following' ? r.following_id : r.follower_id).filter(Boolean);
+          if (!ids.length) {
+            this.followNetworkUsers = [];
+            this.renderFollowNetwork();
+            return;
+          }
+
+          const { data: profiles, error: profileError } = await vioSupabase
+            .from('profiles')
+            .select('id, username, display_name, avatar_url, bio, verification_status')
+            .in('id', ids);
+          if (profileError) throw profileError;
+
+          const byId = new Map((profiles || []).map(p => [p.id, p]));
+          this.followNetworkUsers = ids.map(id => byId.get(id)).filter(Boolean);
+          await this.refreshFollowNetworkFollowingState();
+          this.renderFollowNetwork();
+        } catch (e) {
+          console.warn('VIO: follow network load failed', e);
+          this.followNetworkUsers = [];
+          list.innerHTML = '';
+          empty.style.display = 'block';
+          const title = empty.querySelector('.vio-follow-network__empty-title');
+          const body = empty.querySelector('.vio-follow-network__empty-body');
+          if (title) title.textContent = 'Could not load this list';
+          if (body) body.textContent = 'Please check your connection and try again.';
+        }
+      }
+
+      async refreshFollowNetworkFollowingState() {
+        this.followNetworkFollowingIds = new Set();
+        const ids = (this.followNetworkUsers || []).map(u => u.id).filter(id => id && id !== this.currentUser.id);
+        if (!ids.length) return;
+        try {
+          const { data, error } = await vioSupabase
+            .from('follows')
+            .select('following_id')
+            .eq('follower_id', this.currentUser.id)
+            .in('following_id', ids);
+          if (error) throw error;
+          (data || []).forEach(row => this.followNetworkFollowingIds.add(row.following_id));
+        } catch (e) {
+          console.warn('VIO: follow network following-state load failed', e);
+        }
+      }
+
+      filterFollowNetwork() {
+        this.renderFollowNetwork();
+      }
+
+      renderFollowNetwork() {
+        const list = document.getElementById('follow-network-list');
+        const empty = document.getElementById('follow-network-empty');
+        const search = document.getElementById('follow-network-search');
+        if (!list || !empty) return;
+        this.updateFollowNetworkTabs();
+
+        const term = (search?.value || '').trim().toLowerCase();
+        const users = (this.followNetworkUsers || []).filter(user => {
+          if (!term) return true;
+          return [user.display_name, user.username, user.bio].filter(Boolean).some(v => String(v).toLowerCase().includes(term));
+        });
+
+        list.innerHTML = '';
+        if (!users.length) {
+          list.style.display = 'none';
+          empty.style.display = 'block';
+          const title = empty.querySelector('.vio-follow-network__empty-title');
+          const body = empty.querySelector('.vio-follow-network__empty-body');
+          if (title) title.textContent = term ? 'No people found' : (this.followNetworkMode === 'following' ? 'You are not following anyone yet' : 'You do not have any followers yet');
+          if (body) body.textContent = term ? 'Try a different name or username.' : (this.followNetworkMode === 'following' ? 'People you follow will appear here.' : 'People who follow you will appear here.');
+          return;
+        }
+        list.style.display = 'block';
+        empty.style.display = 'none';
+        users.forEach(user => list.appendChild(this.createFollowNetworkUser(user)));
+      }
+
+      createFollowNetworkUser(user) {
+        const row = document.createElement('div');
+        row.className = 'vio-follow-user';
+        row.setAttribute('role', 'button');
+        row.setAttribute('tabindex', '0');
+
+        const avatar = document.createElement('div');
+        avatar.className = 'vio-follow-user__avatar';
+        avatar.innerHTML = user.avatar_url
+          ? `<img src="${this.escapeHtml(user.avatar_url)}" alt="">`
+          : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
+
+        const main = document.createElement('div');
+        main.className = 'vio-follow-user__main';
+        const name = document.createElement('div');
+        name.className = 'vio-follow-user__name';
+        const nameText = document.createElement('span');
+        nameText.className = 'vio-follow-user__name-text';
+        nameText.textContent = user.display_name || user.username || 'Creator';
+        name.appendChild(nameText);
+        if (user.verification_status === 'verified') name.insertAdjacentHTML('beforeend', this.verifiedBadgeHtml(true));
+        const handle = document.createElement('div');
+        handle.className = 'vio-follow-user__handle';
+        const cleanUsername = user.username ? String(user.username).replace(/^@+/, '') : '';
+        handle.textContent = cleanUsername ? '@' + cleanUsername : '';
+        main.append(name, handle);
+        if (user.bio) {
+          const bio = document.createElement('div');
+          bio.className = 'vio-follow-user__bio';
+          bio.textContent = user.bio;
+          main.appendChild(bio);
+        }
+
+        const action = document.createElement('button');
+        action.type = 'button';
+        action.className = 'vio-follow-user__action';
+        const isSelf = user.id === this.currentUser.id;
+        const isFollowing = this.followNetworkFollowingIds?.has(user.id);
+        if (isSelf) {
+          action.style.display = 'none';
+        } else if (isFollowing) {
+          action.textContent = 'Following';
+          action.classList.add('vio-follow-user__action--following');
+        } else {
+          action.textContent = 'Follow';
+        }
+        action.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          if (isSelf) return;
+          await this.toggleFollowFromNetwork(user.id, action);
+        });
+
+        row.append(avatar, main, action);
+        const open = () => this.openUserProfile(user.id);
+        row.addEventListener('click', open);
+        row.addEventListener('keydown', e => {
+          if ((e.key === 'Enter' || e.key === ' ') && e.target === row) { e.preventDefault(); open(); }
+        });
+        return row;
+      }
+
+      async toggleFollowFromNetwork(userId, button) {
+        if (!userId || !this.currentUser?.id || userId === this.currentUser.id) return;
+        const wasFollowing = this.followNetworkFollowingIds?.has(userId);
+        if (!this.followNetworkFollowingIds) this.followNetworkFollowingIds = new Set();
+        if (wasFollowing) this.followNetworkFollowingIds.delete(userId); else this.followNetworkFollowingIds.add(userId);
+        button.textContent = wasFollowing ? 'Follow' : 'Following';
+        button.classList.toggle('vio-follow-user__action--following', !wasFollowing);
+        button.disabled = true;
+        try {
+          if (wasFollowing) {
+            const { error } = await vioSupabase.from('follows').delete().eq('follower_id', this.currentUser.id).eq('following_id', userId);
+            if (error) throw error;
+          } else {
+            const { error } = await vioSupabase.from('follows').insert({ follower_id: this.currentUser.id, following_id: userId });
+            if (error) throw error;
+          }
+          this.refreshOwnFollowCounts();
+        } catch (e) {
+          if (wasFollowing) this.followNetworkFollowingIds.add(userId); else this.followNetworkFollowingIds.delete(userId);
+          button.textContent = wasFollowing ? 'Following' : 'Follow';
+          button.classList.toggle('vio-follow-user__action--following', wasFollowing);
+          this.showToast?.('Could not update follow status. Please try again.');
+        } finally {
+          button.disabled = false;
         }
       }
 
@@ -21946,19 +23045,19 @@ body:has(#screen-profile.is-active) .vio-main {
 }
 #screen-profile .vio-profile__bio,
 #vio-userprofile-overlay .vio-profile__bio {
-  font-size: 11px !important;
+  font-size: 14px !important;
   line-height: 16px !important;
 }
 #screen-profile .vio-profile__website,
 #vio-userprofile-overlay .vio-profile__website {
-  font-size: 10px !important;
+  font-size: 13px !important;
   line-height: 14px !important;
 }
 #screen-profile .vio-profile__meta,
 #vio-userprofile-overlay .vio-profile__meta,
 #screen-profile .vio-profile__meta-item,
 #vio-userprofile-overlay .vio-profile__meta-item {
-  font-size: 10px !important;
+  font-size: 13px !important;
   line-height: 14px !important;
 }
 #screen-profile .vio-profile__stat-value,
@@ -22143,6 +23242,40 @@ body:has(#screen-profile.is-active) .vio-main {
   display: inline-flex;
   align-items: center;
 }
+</style>
+
+
+<style id="ruucho-profile-creator-type-final">
+  /*
+   * FINAL PROFILE NAME SCALE
+   * 17px is the recommended profile-name size:
+   * - clearly visible on a social profile
+   * - 2px above the 15px Home post author name
+   * - leaves substantially more horizontal room for long names
+   * - never drops below the Home post-name size
+   */
+  #screen-profile .vio-profile__name,
+  #vio-userprofile-overlay .vio-profile__name {
+    font-size: 17px !important;
+    line-height: 21px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.015em;
+  }
+
+  #screen-profile .vio-profile__handle,
+  #vio-userprofile-overlay .vio-profile__handle {
+    font-size: 14px !important;
+    line-height: 18px !important;
+  }
+
+  /* Long names get maximum usable width while the verified badge
+     remains visible and never gets pushed off-screen. */
+  #screen-profile .vio-profile__name:has(.vio-profile__verified),
+  #screen-profile .vio-profile__name:has(.verified-badge),
+  #vio-userprofile-overlay .vio-profile__name:has(.vio-profile__verified),
+  #vio-userprofile-overlay .vio-profile__name:has(.verified-badge) {
+    gap: 4px !important;
+  }
 </style>
 
 </body>
