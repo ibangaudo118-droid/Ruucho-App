@@ -4189,13 +4189,13 @@
       min-width: 0;
     }
     .vio-post__author {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--vio-accent);
       line-height: 22px;
     }
     .vio-post__handle {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--vio-muted);
     }
@@ -4207,7 +4207,7 @@
       font-variant-numeric: tabular-nums;
     }
     .vio-post__content {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       line-height: 1.4;
       color: var(--vio-accent);
       word-wrap: break-word;
@@ -4319,6 +4319,13 @@
       font-family: inherit;
     }
     .vio-post__stat:hover { color: var(--vio-accent); }
+
+    .vio-post__action--impressions {
+      cursor: default !important;
+      pointer-events: none !important;
+      user-select: none !important;
+    }
+    .vio-post__action--impressions:active { transform: none !important; }
 
     /* ═══════════════════════════════════════════════════════════════
        PROFILE POSTS FEED (full post cards — same component as Home)
@@ -6188,7 +6195,7 @@
     .vio-messages__back:active,
     .vio-conversation__back:active { transform: scale(0.94); }
     .vio-messages__title {
-      font-size: 0.75rem;
+      font-size: 1.45rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--vio-accent);
@@ -7696,7 +7703,7 @@
 /* Identity hierarchy */
 #screen-profile .vio-profile__name,
 #vio-userprofile-overlay .vio-profile__name {
-  font-size: 18px !important;
+  font-size: 20px !important;
   line-height: 22px !important;
   font-weight: 700 !important;
   margin: 0 !important;
@@ -7704,7 +7711,7 @@
 
 #screen-profile .vio-profile__handle,
 #vio-userprofile-overlay .vio-profile__handle {
-  font-size: 13px !important;
+  font-size: 15px !important;
   line-height: 18px !important;
   margin: 0 !important;
 }
@@ -7739,13 +7746,13 @@
 #vio-userprofile-overlay .vio-profile__meta {
   margin: 5px 0 0 !important;
   gap: 7px 10px !important;
-  font-size: 12.5px !important;
+  font-size: 14.5px !important;
   line-height: 17px !important;
 }
 
 #screen-profile .vio-profile__meta-item,
 #vio-userprofile-overlay .vio-profile__meta-item {
-  font-size: 12.5px !important;
+  font-size: 14.5px !important;
   line-height: 17px !important;
 }
 
@@ -8043,6 +8050,61 @@ body:has(#screen-profile.is-active) .vio-main {
   margin-left: 0 !important;
 }
 </style>
+
+<style id="ruucho-requested-final-fixes">
+  /* 1–3: Home post identity/content +2px. Detail uses the same post component. */
+  .vio-post__author { font-size: 15px !important; }
+  .vio-post__handle { font-size: 14px !important; }
+  .vio-post__content { font-size: 14px !important; }
+
+  /* 4: Comments +2px from the source's compact scale. */
+  .vio-comments .vio-comments__count,
+  .vio-comments .vio-comment__author,
+  .vio-comments .vio-comment__text,
+  .vio-comments .vio-comment__hidden-copy strong,
+  .vio-comments .vio-comment-input__field { font-size: 14px !important; }
+  .vio-comments .vio-comments__sort,
+  .vio-comments .vio-comment__handle,
+  .vio-comments .vio-comment__time,
+  .vio-comments .vio-comment__replies-toggle,
+  .vio-comments .vio-comment__hidden-copy span,
+  .vio-comments .vio-comment-input__replying { font-size: 12px !important; }
+
+  /* 5: Messages header title matches Notifications title. */
+  .vio-messages__title { font-size: 1.45rem !important; }
+
+  /* 6: Profile Name, Username and metadata +2px. */
+  #screen-profile .vio-profile__name,
+  #vio-userprofile-overlay .vio-profile__name { font-size: 20px !important; line-height: 24px !important; }
+  #screen-profile .vio-profile__handle,
+  #vio-userprofile-overlay .vio-profile__handle { font-size: 15px !important; line-height: 20px !important; }
+  #screen-profile .vio-profile__meta,
+  #vio-userprofile-overlay .vio-profile__meta,
+  #screen-profile .vio-profile__meta-item,
+  #vio-userprofile-overlay .vio-profile__meta-item { font-size: 14.5px !important; line-height: 19px !important; }
+
+  /* 7 + final requirement: fixed impressions metric; not tappable. */
+  .vio-post__action--impressions {
+    cursor: default !important;
+    pointer-events: none !important;
+    user-select: none !important;
+  }
+  .vio-post__action--impressions:active { transform: none !important; }
+</style>
+
+  <style id="ruucho-followup-four-fixes">
+    /* 2: Messages inbox names use the same size as Home post text. */
+    #screen-messages .vio-convo__name { font-size: 14px !important; line-height: 1.35 !important; }
+
+    /* 3: Notification body text uses the same size as Home post text. */
+    #screen-notifications .vio-notif__text { font-size: 14px !important; line-height: 1.5 !important; }
+
+    /* 4: Names/usernames in an opened conversation match Home post author/handle sizes. */
+    #screen-conversation .vio-conversation__name,
+    #vio-conversation-overlay .vio-conversation__name { font-size: 15px !important; line-height: 1.25 !important; }
+    #screen-conversation .vio-conversation__handle,
+    #vio-conversation-overlay .vio-conversation__handle { font-size: 14px !important; line-height: 1.35 !important; }
+  </style>
 </head>
 <body>
 
@@ -10296,6 +10358,7 @@ body:has(#screen-profile.is-active) .vio-main {
         this.qualifiedViewSeen = new Set(); // postId, this session — avoid duplicate RPC calls per view
         this.qualifiedViewStart = new Map(); // postId -> { enteredAt, ratio }
         this.impressionSeen = new Set(); // postId, this session — avoid duplicate impression inserts per render
+        this._likeInFlight = new Set(); // serialize like writes per post
         // Boost Post (Vicoins spend, Phase 1 UI): catalog cache + in-flight state.
         this.boostCatalog = null; // cached rows from vicoins_spend_catalog
         this.boostTargetPostId = null; // post currently open in the Boost overlay
@@ -12170,7 +12233,7 @@ body:has(#screen-profile.is-active) .vio-main {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"></path><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><path d="M7 23l-4-4 4-4"></path><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
               <span>${post.echoes > 0 ? post.echoes : ''}</span>
             </button>
-            ${this.currentTab === 'profile' && this.currentUser && post.authorId === this.currentUser.id ? `
+            ${this.currentUser && post.authorId === this.currentUser.id ? `
               <button type="button" class="vio-post__action vio-post__action--impressions" data-action="post-impressions" data-post="${post.id}" aria-label="${Number(post.impressions || 0).toLocaleString()} impressions" title="${Number(post.impressions || 0).toLocaleString()} impressions">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="19" x2="5" y2="14"></line><line x1="12" y1="19" x2="12" y2="9"></line><line x1="19" y1="19" x2="19" y2="5"></line></svg>
                 <span>${Number(post.impressions || 0).toLocaleString()}</span>
@@ -12294,13 +12357,6 @@ body:has(#screen-profile.is-active) .vio-main {
         const echoBtn = div.querySelector('.vio-post__action--echo');
         echoBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); this.toggleEcho(post.id); });
 
-        const impressionsBtn = div.querySelector('[data-action="post-impressions"]');
-        if (impressionsBtn) {
-          impressionsBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-          });
-        }
-
         const boostBtn = div.querySelector('[data-action="boost-post"]');
         if (boostBtn) {
           boostBtn.addEventListener('click', (e) => {
@@ -12401,6 +12457,26 @@ body:has(#screen-profile.is-active) .vio-main {
           commentCounts[row.post_id] = (commentCounts[row.post_id] || 0) + 1;
         });
 
+        const impressionCounts = {};
+        try {
+          const authoredPostIds = rows.filter(r => r.author_id === this.currentUser.id).map(r => r.id).filter(Boolean);
+          if (authoredPostIds.length) {
+            const { data: impressionRows, error: impressionErr } = await vioSupabase
+              .from('vicoins_events')
+              .select('target_post_id')
+              .eq('creator_id', this.currentUser.id)
+              .eq('event_type', 'post_impression')
+              .in('target_post_id', authoredPostIds);
+            if (!impressionErr) {
+              (impressionRows || []).forEach(r => {
+                impressionCounts[r.target_post_id] = (impressionCounts[r.target_post_id] || 0) + 1;
+              });
+            }
+          }
+        } catch (e) {
+          console.warn('VIO: shared impression load failed', e);
+        }
+
         const echoCounts = {};
         const echoedByMe = new Set();
         (echoesRes.data || []).forEach(row => {
@@ -12427,6 +12503,7 @@ body:has(#screen-profile.is-active) .vio-main {
             isSaved: savedByMe.has(row.id),
             echoes: echoCounts[row.id] || 0,
             isEchoed: echoedByMe.has(row.id),
+            impressions: impressionCounts[row.id] || 0,
             commentList: []
           };
         });
@@ -12556,6 +12633,10 @@ body:has(#screen-profile.is-active) .vio-main {
         const post = this.getPostById(postId);
         if (!post) return;
 
+        if (!this._likeInFlight) this._likeInFlight = new Set();
+        if (this._likeInFlight.has(postId)) return;
+        this._likeInFlight.add(postId);
+
         // Optimistic UI update
         const wasLiked = post.isLiked;
         post.isLiked = !wasLiked;
@@ -12577,7 +12658,10 @@ body:has(#screen-profile.is-active) .vio-main {
           if (post.isLiked) {
             const { error } = await vioSupabase
               .from('likes')
-              .insert({ post_id: postId, user_id: this.currentUser.id });
+              .upsert(
+                { post_id: postId, user_id: this.currentUser.id },
+                { onConflict: 'post_id,user_id', ignoreDuplicates: true }
+              );
             if (error) throw error;
             // Notifications for the post's author are created server-side
             // (Postgres trigger on the likes table) so the actor never
@@ -12611,6 +12695,8 @@ body:has(#screen-profile.is-active) .vio-main {
           this.updatePostCardUI(postId);
           this.renderSaved();
           if (this.activePostId === postId) this.renderDetailPost(post);
+        } finally {
+          this._likeInFlight.delete(postId);
         }
       }
 
@@ -15649,6 +15735,31 @@ body:has(#screen-profile.is-active) .vio-main {
             commentCounts[row.post_id] = (commentCounts[row.post_id] || 0) + 1;
           });
 
+          // Home and Profile must use the same backend-backed impression source.
+          // Profile reads post_impression events for the authenticated creator;
+          // Home needs the same enrichment for the creator's own posts.
+          const impressionCounts = {};
+          try {
+            const authoredPostIds = rows
+              .filter(r => r.author_id === this.currentUser.id)
+              .map(r => r.id)
+              .filter(Boolean);
+            if (authoredPostIds.length) {
+              const { data: impressionRows, error: impressionErr } = await vioSupabase
+                .from('vicoins_events')
+                .select('target_post_id')
+                .eq('creator_id', this.currentUser.id)
+                .eq('event_type', 'post_impression')
+                .in('target_post_id', authoredPostIds);
+              if (impressionErr) throw impressionErr;
+              (impressionRows || []).forEach(row => {
+                impressionCounts[row.target_post_id] = (impressionCounts[row.target_post_id] || 0) + 1;
+              });
+            }
+          } catch (impressionErr) {
+            console.warn('VIO: Home impression enrichment failed', impressionErr);
+          }
+
           const echoCounts = {};
           const echoedByMe = new Set();
           // Timestamp of THIS user's own Echo of each post (distinct from
@@ -15687,6 +15798,7 @@ body:has(#screen-profile.is-active) .vio-main {
               echoes: echoCounts[row.id] || 0,
               isEchoed: echoedByMe.has(row.id),
               echoedAt: echoedAtByMe[row.id] || null,
+              impressions: impressionCounts[row.id] || 0,
               commentList: []
             };
           });
@@ -21944,45 +22056,45 @@ body:has(#screen-profile.is-active) .vio-main {
 <style id="ruucho-comments-consistent-type">
 /* FINAL COMMENTS TYPE SCALE: match the compact Home feed typography. */
 .vio-comments .vio-comments__count {
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 .vio-comments .vio-comments__sort {
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 
 .vio-comments .vio-comment__author {
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 .vio-comments .vio-comment__handle,
 .vio-comments .vio-comment__time {
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 
 .vio-comments .vio-comment__text {
-  font-size: 12px !important;
+  font-size: 14px !important;
   line-height: 1.4 !important;
 }
 
 .vio-comments .vio-comment__replies-toggle {
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 
 .vio-comments .vio-comment__hidden-copy strong {
-  font-size: 12px !important;
+  font-size: 14px !important;
 }
 
 .vio-comments .vio-comment__hidden-copy span {
-  font-size: 10px !important;
-}
-
-.vio-comments .vio-comment-input__field {
   font-size: 12px !important;
 }
 
+.vio-comments .vio-comment-input__field {
+  font-size: 14px !important;
+}
+
 .vio-comments .vio-comment-input__replying {
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 </style>
 
